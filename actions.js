@@ -3,8 +3,8 @@ import uuid from 'uuid';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
-export const RATING_UP_COMMENT = 'THUMB_UP_COMMENT';
-export const RATING_DOWN_COMMENT = 'THUMB_DOWN_COMMENT';
+export const THUMB_UP_COMMENT = 'THUMB_UP_COMMENT';
+export const THUMB_DOWN_COMMENT = 'THUMB_DOWN_COMMENT';
 
 function addComment(text) {
     return {
@@ -21,7 +21,7 @@ function editComment(text, id) {
     return {
         type: EDIT_COMMENT,
         text,
-        id: id // czy musi być uuid.v4() ?
+        id: id 
     }
 }
 
@@ -38,19 +38,24 @@ function removeComment(id) {
 const boundRemoveComment = id => dispatch(removeComment(id));
 boundRemoveComment(11);
 
-function ratingComment(rating) {
-    if (rating === true) {
-        return {
-            type: RATING_UP_COMMENT,
-            likes: likes+1
-        }
-    } else if (rating === false) {
-        return {
-            type: RATING_DOWN_COMMENT,
-            likes: likes-1
-        }
+
+function thumbUpComment(id, voteUp) {
+    return {
+        type: THUMB_UP_COMMENT,
+        id,
+		vote: voteUp
     }
 }
 
-const boundRatingComment = rating => dispatch.ratingComment(rating);
-boundRatingComment(false);
+const boundThumbUpComment = (id, text) => dispatch(thumbUpComment(id, voteUp));
+
+function thumbDownComment(id, voteDown) {
+    return {
+        type: THUMB_DOWN_COMMENT,
+        id,
+		vote: voteDown
+    }
+}
+
+const boundThumbDownComment = (id, text) => dispatch(thumbDownComment(id, voteDown));
+
